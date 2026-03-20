@@ -95,6 +95,7 @@ if TYPER_AVAILABLE:
         """Manage CLI configuration."""
         if reset:
             if Confirm.ask("Reset configuration to defaults?"):
+                global settings
                 settings = Settings()
                 console.print("[green]✅ Configuration reset to defaults[/green]")
                 return

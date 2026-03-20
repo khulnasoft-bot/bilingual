@@ -9,8 +9,8 @@ This script provides utilities to collect data from various sources:
 - Web scraping (educational platforms, news, books)
 
 Usage:
-    python scripts/collect_data.py --source wikipedia --lang bn --output data/raw/
-    python scripts/collect_data.py --source web-scrape --platforms educational --output data/raw/
+    python scripts/train-lm.py --source wikipedia --lang bn --output data/raw/
+    python scripts/train-lm.py --source web-scrape --platforms educational --output data/raw/
 """
 
 import argparse

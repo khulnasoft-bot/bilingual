@@ -33,6 +33,14 @@ except ImportError:
     TRANSFORMERS_AVAILABLE = False
     print("Warning: transformers not available. Install with: pip install transformers torch")
 
+warnings.warn(
+    "TransformerModelManager is deprecated and will be removed in future versions. "
+    "Please use bilingual.models.manager.ModelManager instead for consolidated loading, "
+    "caching, and quantization support.",
+    DeprecationWarning,
+    stacklevel=2
+)
+
 
 class TransformerModelManager:
     """

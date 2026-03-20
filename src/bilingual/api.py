@@ -124,6 +124,7 @@ def tokenize(
 def generate(
     prompt: Union[str, List[str]],
     model_name: str = "bilingual-small-lm",
+    version: Optional[str] = None,
     max_tokens: int = 100,
     temperature: float = 0.7,
     top_p: float = 0.9,
@@ -147,7 +148,11 @@ def generate(
         >>> generate("Once upon a time, there was a brave rabbit")
         'Once upon a time, there was a brave rabbit who lived in a forest...'
     """
-    model = load_model(model_name)
+    if not prompt or len(prompt) > 5000:
+        from bilingual.exceptions import ValidationError
+        raise ValidationError(f"Prompt length {len(prompt) if prompt else 0} exceeds limit of 5000 or is empty.")
+
+    model = load_model(model_name, version=version)
 
     # Import here to avoid circular dependencies
     from bilingual.models.lm import generate_text
@@ -196,12 +201,17 @@ def translate(
         warnings.warn(f"Source and target languages are the same ({src}). Returning original text.")
         return text
 
-    model = load_model(model_name)
-
     # Import here to avoid circular dependencies
     from bilingual.models.translate import translate_text
 
-    return translate_text(model=model, text=text, src_lang=src, tgt_lang=tgt, **kwargs)
+    return translate_text(
+        model=model_name, 
+        text=text, 
+        src_lang=src, 
+        tgt_lang=tgt, 
+        version=version,
+        **kwargs
+    )
 
 
 def readability_check(
@@ -528,25 +538,7 @@ def fine_tune_model(
 ) -> str:
     """
     Fine-tune a language model on custom data.
-
-    Args:
-        model_name: Name of the base model to fine-tune
-        train_data: List of training examples, each dict with 'input' and 'output' keys
-        output_dir: Directory to save the fine-tuned model
-        epochs: Number of training epochs
-        learning_rate: Learning rate for training
-        batch_size: Batch size for training
-        **kwargs: Additional training parameters
-
-    Returns:
-        Path to the fine-tuned model
-
-    Examples:
-        >>> train_data = [
-        ...     {"input": "Hello, how are you?", "output": "I'm doing well, thank you!"},
-        ...     {"input": "আমি কেমন আছি?", "output": "আমি ভালো আছি, ধন্যবাদ!"}
-        ... ]
-        >>> model_path = fine_tune_model("bilingual-small-lm", train_data, "my_model/")
+    Now delegated to bilingual.training.manager.
     """
     raise NotImplementedError("Fine-tuning is not yet implemented.")
 

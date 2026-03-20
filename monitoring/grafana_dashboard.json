@@ -1,0 +1,33 @@
+{
+  "title": "Bilingual RAG Performance Dashboard",
+  "panels": [
+    {
+      "title": "RAG Latency Split (Seconds)",
+      "type": "graph",
+      "targets": [
+        { "expr": "sum(rate(bilingual_rag_latency_seconds_sum[1m])) by (stage) / sum(rate(bilingual_rag_latency_seconds_count[1m])) by (stage)" }
+      ]
+    },
+    {
+      "title": "Retrieval Hit Rate (%)",
+      "type": "gauge",
+      "targets": [
+        { "expr": "rate(bilingual_rag_retrieval_hits_total[1m]) / rate(bilingual_api_requests_total{endpoint='/rag/query'}[1m]) * 100" }
+      ]
+    },
+    {
+      "title": "Token Usage per Request",
+      "type": "heatmap",
+      "targets": [
+        { "expr": "bilingual_rag_context_tokens_sum / bilingual_rag_context_tokens_count" }
+      ]
+    },
+    {
+      "title": "Error Rate by Type",
+      "type": "timeseries",
+      "targets": [
+        { "expr": "sum(rate(bilingual_api_errors_total[1m])) by (error_type)" }
+      ]
+    }
+  ]
+}

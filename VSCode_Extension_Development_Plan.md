@@ -1,6 +1,6 @@
 # **VSCode Extension Development Plan (TODO)**
 
-### *Agentic Coding • Code Review • Modern Terminal • Multi‑Agent System • Context Management*
+## *Agentic Coding • Code Review • Modern Terminal • Multi‑Agent System • Context Management*
 
 ---
 

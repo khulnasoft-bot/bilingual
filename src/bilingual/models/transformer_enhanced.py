@@ -7,7 +7,6 @@ Features:
 - Layer normalization with pre-norm
 - Multi-query attention
 - Gated residual connections
-- Mixture of Experts (MoE)
 - Flash Attention 2
 """
 

@@ -134,6 +134,7 @@ for seq in result:
 
 ## Evaluation
 
+
 ### Perplexity (Lower is Better)
 | Dataset | Perplexity |
 |---------|------------|
@@ -148,6 +149,7 @@ for seq in result:
 | Text Classification | 78.2% | 82.5% |
 | Named Entity Recognition | 75.6% F1 | 79.3% F1 |
 | Question Answering | 68.4% F1 | 72.1% F1 |
+
 
 ### Downstream Tasks (after fine-tuning)
 - Text Classification: 85% accuracy

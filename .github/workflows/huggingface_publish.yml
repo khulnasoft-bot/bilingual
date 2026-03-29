@@ -252,12 +252,13 @@ if not all_valid:
         with:
           script: |
             const { status, message } = process.env;
-            const { context } = require('@actions/github');
-            const github = require('@actions/github');
-            
-            const octokit = github.getOctokit(process.env.GITHUB_TOKEN);
             const { owner, repo } = context.repo;
-            const prNumber = context.issue.number;
+            const prNumber = context.payload.pull_request?.number;
+            
+            if (!prNumber) {
+              console.log('Not a PR context, skipping comment');
+              return;
+            }
             
             // Find existing comment from this workflow
             const { data: comments } = await octokit.rest.issues.listComments({

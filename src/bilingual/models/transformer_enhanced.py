@@ -119,7 +119,6 @@ class RotaryPositionalEmbedding(nn.Module):
         half_dim = x.shape[-1] // 2
         x1, x2 = x[..., :half_dim], x[..., half_dim:]
         return torch.cat([-x2, x1], dim=-1)
-        return torch.cat((-x2, x1), dim=-1)
 
 
 class SwiGLU(nn.Module):
